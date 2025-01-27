@@ -1,6 +1,18 @@
-import { Box, Button, Container, Input, Stack } from "@chakra-ui/react";
+import { Box, Button, Container, Input, Spinner, Stack } from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const handleSubmit =()=>{
+        setIsLoading(true);
+        setTimeout(()=>{
+            setIsLoading(false);
+            navigate("/listening")
+        },1500);
+    };
+
     return (
         <>
         <Container maxW='md'>
@@ -11,7 +23,9 @@ export const Login = () => {
             <Box>
                 <Input placeholder="enter password"/>
             </Box>
-                <Button colorScheme="blue">Submit</Button>
+                <Button colorScheme="blue" onClick={handleSubmit}>Submit
+                    {isLoading && <Spinner size="xs" ml="4" />}
+                </Button>
             </Stack>
         </Container>
         </>
